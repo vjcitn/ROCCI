@@ -8,21 +8,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - name: install and log bioc package from personal github
+    #- name: install and log bioc package from bioc git
       run: Rscript -e "BiocManager::install('ROC')" > roc_install.log.txt
     - name: get install log
       uses: actions/upload-artifact@v1
       with:
         name: install_log
         path: roc_install.log.txt
-  build: 
+  build1: 
     container: vjcitn/vjcbbs_support:v5
     needs: install1
     name: build with log 
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: build and log bioc package from personal github 
+      #- uses: actions/checkout@v1
+      - name: build and log bioc package from bioc git
         run: Rscript -e "git2r::clone('https://git.bioconductor.org/packages/ROC', 'ROC'); setwd('ROC'); pkgbuild::build()" > roc_build.log.txt
       - name: get build log
         uses: actions/upload-artifact@v1
@@ -34,3 +34,17 @@ jobs:
         with: 
           name: tarball
           path: ROC_1.61.2.tar.gz
+  check1:
+    container: vjcitn/vjcbbs_support:v5
+    needs: build1
+    name: check with log 
+    runs-on: ubuntu-latest
+    steps:
+      #- uses: actions/checkout@v1
+      - name: check and log bioc package from bioc git 
+        run: R CMD check ROC_1.61.2.tar.gz > roc_chk.log.txt
+      - name: get check log
+        uses: actions/upload-artifact@v1
+        with:
+          name: check_log
+          path: roc_chk.log.txt
