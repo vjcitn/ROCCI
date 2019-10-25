@@ -7,8 +7,8 @@ jobs:
     name: install with log
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    #- name: install and log bioc package from bioc git
+    #- uses: actions/checkout@v1
+    - name: install and log bioc package from bioc git
       run: Rscript -e "BiocManager::install('ROC')" > roc_install.log.txt
     - name: get install log
       uses: actions/upload-artifact@v1
