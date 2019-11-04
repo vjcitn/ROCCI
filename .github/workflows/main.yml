@@ -7,8 +7,8 @@ jobs:
     name: install with log
     runs-on: ubuntu-latest
     steps:
-    - name: install and log bioc package from bioc git # ensures that check can run
-      run: Rscript -e "BiocManager::install(c('pasilla','DESEQ2'))" > ds2_install.log.txt
+    - name: install and log bioc package from bioc git 
+      run: Rscript -e "BiocManager::install(c('DESEQ2'), dependencies=c('Depends', 'Imports', 'LinkingTo', 'Suggests'))" > ds2_install.log.txt
     - name: get install log
       uses: actions/upload-artifact@v1
       with:
@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: build and log bioc package from bioc git
-        run: Rscript -e "git2r::clone('https://git.bioconductor.org/packages/DESeq2', 'DESeq2', branch='RELEASE_3_10'); setwd('DESeq2'); pkgbuild::build()" > ds2_build.log.txt
+        run: Rscript -e "BiocManager::install(c('DESEQ2'), dependencies=c('Depends', 'Imports', 'LinkingTo', 'Suggests')); git2r::clone('https://git.bioconductor.org/packages/DESeq2', 'DESeq2', branch='RELEASE_3_10'); setwd('DESeq2'); pkgbuild::build()" > ds2_build.log.txt
       - name: get build log
         uses: actions/upload-artifact@v1
         with:
