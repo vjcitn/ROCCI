@@ -31,7 +31,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with: 
           name: tarball
-          path: ROC_1.61.2.tar.gz
+          path: ROC_1.63.0.tar.gz
   check1:
     container: vjcitn/vjcbbs_support:v5
     needs: build1
@@ -40,7 +40,7 @@ jobs:
     steps:
       #- uses: actions/checkout@v1
       - name: check and log bioc package from bioc git 
-        run: R CMD check ROC_1.61.2.tar.gz > roc_chk.log.txt
+        run: R CMD check ROC_1.63.0.tar.gz > roc_chk.log.txt
       - name: get check log
         uses: actions/upload-artifact@v1
         with:
