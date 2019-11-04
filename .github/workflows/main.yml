@@ -1,6 +1,6 @@
 name: rocci
 
-on: [push]
+on: [pull_request]
 jobs:
   install1:
     container: vjcitn/vjcbbs_support:v5
