@@ -35,7 +35,7 @@ jobs:
           name: tarball
           path: ROC_1.62.0.tar.gz
   check1:
-    container: vjcitn/vjcbbs_support:v5
+    container: vjcitn/vjcbbs_support:v8
     needs: build1
     name: check with log 
     runs-on: ubuntu-latest
