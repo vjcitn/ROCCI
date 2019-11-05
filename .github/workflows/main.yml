@@ -41,6 +41,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       #- uses: actions/checkout@v1
+      - name: Download math result for job 1
+        uses: actions/download-artifact@v1
+        with:
+          name: tarball
+          path: ROC_1.62.0.tar.gz
       - name: check and log bioc package from bioc git 
         run: R CMD check ROC_1.62.0.tar.gz > roc_chk.log.txt
       - name: get check log
