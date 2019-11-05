@@ -49,7 +49,7 @@ jobs:
       - name: chkfo
         run: ls -tl > roc_chk.log.txt
       - name: check and log bioc package from bioc git 
-        run: R CMD check ROC_1.62.0.tar.gz >> roc_chk.log.txt
+        run: R CMD check --no-manual ROC_1.62.0.tar.gz >> roc_chk.log.txt
       - name: get check log
         uses: actions/upload-artifact@v1
         with:
