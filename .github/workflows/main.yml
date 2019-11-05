@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: build and log bioc package from bioc git
-        run: Rscript -e "git2r::clone('https://git.bioconductor.org/packages/ROC', 'ROC', branch="RELEASE_3_10"); setwd('ROC'); pkgbuild::build()" > roc_build.log.txt
+        run: Rscript -e "git2r::clone('https://git.bioconductor.org/packages/ROC', 'ROC', branch='RELEASE_3_10'); setwd('ROC'); pkgbuild::build()" > roc_build.log.txt
       - name: get build log
         uses: actions/upload-artifact@v1
         with:
