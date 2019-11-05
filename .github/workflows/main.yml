@@ -3,7 +3,7 @@ name: rocci
 on: [pull_request]
 jobs:
   install1:
-    container: vjcitn/vjcbbs_support:v8
+    container: vjcitn/vjcbbs_support:v8 # trigger
     name: install with log
     runs-on: ubuntu-latest
     steps:
