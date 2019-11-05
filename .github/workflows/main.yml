@@ -3,25 +3,25 @@ name: rocci
 on: [pull_request]
 jobs:
   install1:
-    container: vjcitn/vjcbbs_support:v5
+    container: vjcitn/vjcbbs_support:v8
     name: install with log
     runs-on: ubuntu-latest
     steps:
     - name: install and log bioc package from bioc git 
-      run: Rscript -e "BiocManager::install(c('DESeq2'), dependencies=c('Depends', 'Imports', 'LinkingTo', 'Suggests'))" > ds2_install.log.txt
+      run: Rscript -e "BiocManager::install(c('DESeq2'), dependencies=TRUE)" > ds2_install.log.txt
     - name: get install log
       uses: actions/upload-artifact@v1
       with:
         name: install_log
         path: ds2_install.log.txt
   build1: 
-    container: vjcitn/vjcbbs_support:v5
+    container: vjcitn/vjcbbs_support:v8
     needs: install1
     name: build with log 
     runs-on: ubuntu-latest
     steps:
-      - name: build and log bioc package from bioc git
-        run: Rscript -e "BiocManager::install(c('DESeq2'), dependencies=c('Depends', 'Imports', 'LinkingTo', 'Suggests')); git2r::clone('https://git.bioconductor.org/packages/DESeq2', 'DESeq2', branch='RELEASE_3_10'); setwd('DESeq2'); pkgbuild::build()" > ds2_build.log.txt
+      - name: build and log bioc package from bioc git # release 3.10
+        run: Rscript -e "BiocManager::install(c('DESeq2'), dependencies=TRUE); git2r::clone('https://git.bioconductor.org/packages/DESeq2', 'DESeq2', branch='RELEASE_3_10'); setwd('DESeq2'); pkgbuild::build()" > ds2_build.log.txt
       - name: get build log
         uses: actions/upload-artifact@v1
         with:
@@ -31,16 +31,16 @@ jobs:
         uses: actions/upload-artifact@v1
         with: 
           name: tarball
-          path: DESeq2_1.27.2.tar.gz
+          path: DESeq2_1.26.0.tar.gz
   check1:
-    container: vjcitn/vjcbbs_support:v5
+    container: vjcitn/vjcbbs_support:v8
     needs: build1
     name: check with log 
     runs-on: ubuntu-latest
     steps:
       #- uses: actions/checkout@v1
       - name: check and log bioc package from bioc git 
-        run: R CMD check DESeq2_1.27.2.tar.gz > ds2_chk.log.txt
+        run: R CMD check DESeq2_1.26.0.tar.gz > ds2_chk.log.txt
       - name: get check log
         uses: actions/upload-artifact@v1
         with:
