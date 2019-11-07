@@ -49,7 +49,7 @@ jobs:
       - name: chkfo
         run: echo `pwd`; ls -tl; echo ${GITHUB_WORKSPACE}; ls -tl ${GITHUB_WORKSPACE}; ls -tl ${GITHUB_WORKSPACE}/*; 
       - name: check and log bioc package from bioc git 
-        run: R CMD check --no-manual ROC_1.62.0.tar.gz
+        run: R CMD check --no-manual ${GITHUB_WORKSPACE}/ROC_1.62.0.tar.gz/ROC_1.62.0.tar.gz > roc_chk.log.txt
       - name: get check log
         uses: actions/upload-artifact@v1
         with:
