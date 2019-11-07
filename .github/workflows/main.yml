@@ -47,7 +47,7 @@ jobs:
           name: tarball
           path: ROC_1.62.0.tar.gz
       - name: chkfo
-        run: echo `pwd`; ls -tl; echo ${GITHUB_WORKSPACE}; ls -tl ${GITHUB_WORKSPACE}; ls -tl ${GITHUB_WORKSPACE}/..
+        run: echo `pwd`; ls -tl; echo ${GITHUB_WORKSPACE}; ls -tl ${GITHUB_WORKSPACE}; ls -tl ${GITHUB_WORKSPACE}/*; 
       - name: check and log bioc package from bioc git 
         run: R CMD check --no-manual ROC_1.62.0.tar.gz
       - name: get check log
