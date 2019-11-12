@@ -1,4 +1,4 @@
-name: biocIBC_ROC
+name: biocIBC_BiocOncoTK
 
 on: [pull_request]
 jobs:
@@ -9,13 +9,13 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v1
-    - name: install and log bioc package from bioc git  # 3.10
-      run: Rscript -e "BiocManager::install('ROC')" > roc_install.log.txt
+    - name: install and log bioc package from bioc git  # 3.10 owing to :v8 above
+      run: Rscript -e "BiocManager::install('BiocOncoTK')" > bcotk_install.log.txt
     - name: get install log
       uses: actions/upload-artifact@v1
       with:
         name: install_log
-        path: roc_install.log.txt
+        path: bcotk_install.log.txt
   build1: 
     container: vjcitn/vjcbbs_support:v8
     needs: install1
@@ -23,17 +23,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: build and log bioc package from bioc git
-        run: Rscript -e "git2r::clone('https://git.bioconductor.org/packages/ROC', 'ROC', branch='RELEASE_3_10'); setwd('ROC'); pkgbuild::build()" > roc_build.log.txt
+        run: Rscript -e "git2r::clone('https://git.bioconductor.org/packages/BiocOncoTK', 'BiocOncoTK', branch='RELEASE_3_10'); setwd('BiocOncoTK'); pkgbuild::build()" > bcotk_build.log.txt
       - name: get build log
         uses: actions/upload-artifact@v1
         with:
           name: build_log
-          path: roc_build.log.txt
+          path: bcotk_build.log.txt
       - name: get tarball
         uses: actions/upload-artifact@v1
         with: 
           name: tarball
-          path: ROC_1.62.0.tar.gz
+          path: BiocOncoTK_1.6.0.tar.gz
   check1:
     container: vjcitn/vjcbbs_support:v8
     needs: build1
@@ -45,13 +45,13 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: tarball
-          path: ROC_1.62.0.tar.gz
+          path: BiocOncoTK_1.6.0.tar.gz
       - name: chkfo
         run: echo `pwd`; ls -tl; echo ${GITHUB_WORKSPACE}; ls -tl ${GITHUB_WORKSPACE}; ls -tl ${GITHUB_WORKSPACE}/*; 
       - name: check and log bioc package from bioc git 
-        run: R CMD check --no-manual ${GITHUB_WORKSPACE}/ROC_1.62.0.tar.gz/ROC_1.62.0.tar.gz > roc_chk.log.txt
+        run: R CMD check --no-manual ${GITHUB_WORKSPACE}/BiocOncoTK_1.6.0.tar.gz/BiocOncoTK_1.6.0.tar.gz > bcotk_chk.log.txt
       - name: get check log
         uses: actions/upload-artifact@v1
         with:
           name: check_log
-          path: roc_chk.log.txt
+          path: bcotk_chk.log.txt
