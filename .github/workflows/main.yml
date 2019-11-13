@@ -4,7 +4,7 @@ on: [pull_request]
 jobs:
   install1:
     container: vjcitn/vjcbbs_support:v8
-    name: install with log
+    name: install with log2
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
