@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: build and log bioc package from bioc git
-        run: Rscript -e "git2r::clone('https://git.bioconductor.org/packages/BiocOncoTK', 'BiocOncoTK', branch='RELEASE_3_10'); setwd('BiocOncoTK'); pkgbuild::build()" > bcotk_build.log.txt
+        run: Rscript -e "git2r::clone('https://git.bioconductor.org/packages/BiocOncoTK', 'BiocOncoTK', branch='RELEASE_3_10'); setwd('BiocOncoTK'); pkgbuild::build()" 
       - name: get build log
         uses: actions/upload-artifact@v1
         with:
