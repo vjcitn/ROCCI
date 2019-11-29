@@ -18,7 +18,7 @@ jobs:
         Rscript -e "BiocManager::install('${PACKAGE_NAME}')" > install.log.txt
         git clone https://git.bioconductor.org/packages/${PACKAGE_NAME}
         cd ${PACKAGE_NAME}
-        Rscript -e "devtools::check()" >& ../chk.log.txt 
+        Rscript -e "devtools::check()" > ../chk.log.txt 
         cd ..
         R CMD build ${PACKAGE_NAME}
         export TARBALL=`ls ${PACKAGE_NAME}_.*gz`
