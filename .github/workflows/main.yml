@@ -13,7 +13,7 @@ jobs:
       run: |
         Rscript -e "BiocManager::install('${PACKAGE_NAME}')" > install.log.txt
         git clone https://git.bioconductor.org/packages/${PACKAGE_NAME}
-        setwd ${PACKAGE_NAME}
+        cd ${PACKAGE_NAME}
         Rscript -e "devtools::check()" > chk.log.txt
     - name: get install log
       uses: actions/upload-artifact@v1
