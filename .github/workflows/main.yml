@@ -1,4 +1,4 @@
-name: biocIBC_BiocOncoTK
+name: biocIBC_ROC
 
 on: [pull_request]
 jobs:
@@ -6,52 +6,23 @@ jobs:
     container: vjcitn/vjcbbs_support:v8
     name: install with log
     runs-on: ubuntu-latest
+    env:
+      PACKAGE_NAME: ROC
     steps:
-    - name: Checkout
-      uses: actions/checkout@v1
     - name: install and log bioc package from bioc git  # 3.10 owing to :v8 above
-      run: Rscript -e "BiocManager::install('BiocOncoTK')" > bcotk_install.log.txt
+      run: |
+        Rscript -e "BiocManager::install('${PACKAGE_NAME}')" > install.log.txt
+        git clone https://git.bioconductor.org/packages/${PACKAGE_NAME}
+        setwd ${PACKAGE_NAME}
+        Rscript -e "devtools::check()" > chk.log.txt
     - name: get install log
       uses: actions/upload-artifact@v1
       with:
         name: install_log
-        path: bcotk_install.log.txt
-  build1: 
-    container: vjcitn/vjcbbs_support:v8
-    needs: install1
-    name: build with log 
-    runs-on: ubuntu-latest
-    steps:
-      - name: build and log bioc package from bioc git
-        run: Rscript -e "git2r::clone('https://git.bioconductor.org/packages/BiocOncoTK', 'BiocOncoTK', branch='RELEASE_3_10'); setwd('BiocOncoTK'); pkgbuild::build()" > bcotk_build.log.txt
-      - name: get build log
-        uses: actions/upload-artifact@v1
-        with:
-          name: build_log
-          path: bcotk_build.log.txt
-      - name: get tarball
-        uses: actions/upload-artifact@v1
-        with: 
-          name: tarball
-          path: BiocOncoTK_1.6.0.tar.gz
-  check1:
-    container: vjcitn/vjcbbs_support:v8
-    needs: build1
-    name: check with log 
-    runs-on: ubuntu-latest
-    steps:
-      #- uses: actions/checkout@v1
-      - name: Download tarball
-        uses: actions/download-artifact@v1
-        with:
-          name: tarball
-          path: BiocOncoTK_1.6.0.tar.gz
-      - name: chkfo
-        run: echo `pwd`; ls -tl; echo ${GITHUB_WORKSPACE}; ls -tl ${GITHUB_WORKSPACE}; ls -tl ${GITHUB_WORKSPACE}/*; 
-      - name: check and log bioc package from bioc git 
-        run: R CMD check --no-manual ${GITHUB_WORKSPACE}/BiocOncoTK_1.6.0.tar.gz/BiocOncoTK_1.6.0.tar.gz > bcotk_chk.log.txt
-      - name: get check log
-        uses: actions/upload-artifact@v1
-        with:
-          name: check_log
-          path: bcotk_chk.log.txt
+        path: install.log.txt
+    - name: get chk log
+      uses: actions/upload-artifact@v1
+      with:
+        name: chk_log
+        path: chk.log.txt
+  
