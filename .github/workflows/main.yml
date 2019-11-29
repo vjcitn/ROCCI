@@ -4,7 +4,7 @@ on: [pull_request]
 jobs:
   install1:
     container: vjcitn/vjcbbs_support:v8
-    name: install with log
+    name: install with log.txt
     runs-on: ubuntu-latest
     env:
       PACKAGE_NAME: ROC
