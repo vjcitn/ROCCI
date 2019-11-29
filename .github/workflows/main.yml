@@ -24,7 +24,8 @@ jobs:
         cd ..
         R CMD build ${PACKAGE_NAME}
         export TARBALL=`ls ${PACKAGE_NAME}_*.gz`
-        mv ${TARBALL} ${GITHUB_WORKSPACE}
+        echo `pwd`
+        ls
       continue-on-error: true
     - name: get install log
       uses: actions/upload-artifact@v1
@@ -42,5 +43,5 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: tb
-        path: ${GITHUB_WORKSPACE}/${TARBALL}
+        path: ${TARBALL}
   
