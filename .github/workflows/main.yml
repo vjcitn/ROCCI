@@ -11,7 +11,9 @@ jobs:
       TARBALL: to_do
     steps:
     - name: improve
-      run: sudo apt-get install -y qpdf
+      run: |
+        sudo apt-get update -y
+        sudo apt-get install -y qpdf
       continue-on-error: true
     - name: install and log bioc package from bioc git  # 3.10 owing to :v8 above
       run: |
