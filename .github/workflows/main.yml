@@ -24,6 +24,7 @@ jobs:
         cd ..
         R CMD build ${PACKAGE_NAME}
         export TARBALL=`ls ${PACKAGE_NAME}_*.gz`
+        cp ${TARBALL} /home/runner/work/biocIBC/biocIBC/
         echo `pwd`
         ls
       continue-on-error: true
@@ -43,5 +44,5 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: tb
-        path: ${TARBALL}
+        path: ROC_1.63.0.tar.gz # not substituting?
   
