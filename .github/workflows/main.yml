@@ -8,16 +8,21 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PACKAGE_NAME: ROC
+      TARBALL: to_do
     steps:
     - name: improve
       run: sudo apt-get install -y qpdf
       continue-on-error: true
     - name: install and log bioc package from bioc git  # 3.10 owing to :v8 above
       run: |
-        Rscript -e "BiocManager::install('${PACKAGE_NAME}')" > install.log.txt
+        Rscript -e "BiocManager::install('${PACKAGE_NAME}')" >& install.log.txt
         git clone https://git.bioconductor.org/packages/${PACKAGE_NAME}
         cd ${PACKAGE_NAME}
-        Rscript -e "devtools::check()" > ../chk.log.txt 
+        Rscript -e "devtools::check()" >& ../chk.log.txt 
+        cd ..
+        R CMD build ${PACKAGE_NAME}
+        export TARBALL=`ls ${PACKAGE_NAME}_.*gz`
+        echo ${TARBALL}
       continue-on-error: true
     - name: get install log
       uses: actions/upload-artifact@v1
@@ -29,4 +34,9 @@ jobs:
       with:
         name: chk_log
         path: chk.log.txt
+    - name: get tarball
+      uses: actions/upload-artifact@v1
+      with:
+        name: tb
+        path: ${TARBALL}
   
