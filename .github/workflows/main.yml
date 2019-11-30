@@ -1,4 +1,8 @@
 name: biocIBC_ROC
+ env:
+      PACKAGE_NAME: ROC
+      PACKAGE_VERSION: 1.63.0
+      TARBALL: ROC_1.63.0.tar.gz
 
 on: [pull_request]
 jobs:
@@ -25,15 +29,14 @@ jobs:
         R CMD build ${PACKAGE_NAME}
         # echo "::set-env name=APP_NAME::
         #echo "::set-env name=TARBALL::`ls ${PACKAGE_NAME}_*.gz`"
-        #echo "$TARBALL"
+        echo "${TARBALL}"
         #echo ${PACKAGE_NAME}
         #echo "${PACKAGE_NAME}"
         #echo "${PACKAGE_NAME}_A"
         #cp "${PACKAGE_NAME}_${PACKAGE_VERSION}.tar.gz" /home/runner/work/biocIBC/biocIBC/
         #echo `pwd`
         #ls
-        #ls /home/runner/work/biocIBC/biocIBC/
-        echo "##[set-output name=tarball]"
+        ls /home/runner/work/biocIBC/biocIBC/
       continue-on-error: true
       id: install_log
     - name: get install log
@@ -52,4 +55,4 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: tb
-        path: {{steps.install_log.outputs.tarball}}
+        path: ${TARBALL}
