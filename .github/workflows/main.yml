@@ -24,8 +24,8 @@ jobs:
         R CMD build ${PACKAGE_NAME}
         # echo "::set-env name=APP_NAME::
         echo "::set-env name=TARBALL::`ls ${PACKAGE_NAME}_*.gz`"
-        echo ${TARBALL}
-        cp ${TARBALL} /home/runner/work/biocIBC/biocIBC/
+        echo $TARBALL
+        cp $TARBALL /home/runner/work/biocIBC/biocIBC/
         echo `pwd`
         ls
         ls /home/runner/work/biocIBC/biocIBC/
@@ -46,5 +46,5 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: tb
-        path: ${TARBALL} # ROC_1.63.0.tar.gz # not substituting?
+        path: $TARBALL # ROC_1.63.0.tar.gz # not substituting?
   
