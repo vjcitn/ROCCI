@@ -23,7 +23,7 @@ jobs:
         Rscript -e "devtools::check()" > ../chk.log.txt 
         cd ..
         R CMD build ${PACKAGE_NAME}
-        export TARBALL=`ls ${PACKAGE_NAME}_*.gz`
+        ::set-env name=TARBALL=`ls ${PACKAGE_NAME}_*.gz`
         cp ${TARBALL} /home/runner/work/biocIBC/biocIBC/
         echo `pwd`
         ls
@@ -44,5 +44,5 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: tb
-        path: ROC_1.63.0.tar.gz # not substituting?
+        path: ${TARBALL} # ROC_1.63.0.tar.gz # not substituting?
   
