@@ -24,9 +24,11 @@ jobs:
         cd ..
         R CMD build ${PACKAGE_NAME}
         ::set-env name=TARBALL=`ls ${PACKAGE_NAME}_*.gz`
+        echo ${TARBALL}
         cp ${TARBALL} /home/runner/work/biocIBC/biocIBC/
         echo `pwd`
         ls
+        ls /home/runner/work/biocIBC/biocIBC/
       continue-on-error: true
     - name: get install log
       uses: actions/upload-artifact@v1
