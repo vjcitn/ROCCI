@@ -23,7 +23,8 @@ jobs:
         Rscript -e "devtools::check()" > ../chk.log.txt 
         cd ..
         R CMD build ${PACKAGE_NAME}
-        ::set-env name=TARBALL=`ls ${PACKAGE_NAME}_*.gz`
+        # echo "::set-env name=APP_NAME::
+        echo "::set-env name=TARBALL=`ls ${PACKAGE_NAME}_*.gz`"
         echo ${TARBALL}
         cp ${TARBALL} /home/runner/work/biocIBC/biocIBC/
         echo `pwd`
