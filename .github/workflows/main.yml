@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PACKAGE_NAME: ROC
+      PACKAGE_VERSION: 1.63.0
     steps:
     - name: improve
       run: |
@@ -23,12 +24,12 @@ jobs:
         cd ..
         R CMD build ${PACKAGE_NAME}
         # echo "::set-env name=APP_NAME::
-        echo "::set-env name=TARBALL::`ls ${PACKAGE_NAME}_*.gz`"
-        echo "$TARBALL"
-        cp "$TARBALL" /home/runner/work/biocIBC/biocIBC/
-        echo `pwd`
-        ls
-        ls /home/runner/work/biocIBC/biocIBC/
+        #echo "::set-env name=TARBALL::`ls ${PACKAGE_NAME}_*.gz`"
+        #echo "$TARBALL"
+        cp ${PACKAGE_NAME}_${PACKAGE_VERSION}.tar.gz /home/runner/work/biocIBC/biocIBC/
+        #echo `pwd`
+        #ls
+        #ls /home/runner/work/biocIBC/biocIBC/
       continue-on-error: true
     - name: get install log
       uses: actions/upload-artifact@master
@@ -46,5 +47,5 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: tb
-        path: "$TARBALL" # ROC_1.63.0.tar.gz # not substituting?
+        path: ${PACKAGE_NAME}_${PACKAGE_VERSION}.tar.gz # ROC_1.63.0.tar.gz # not substituting?
   
