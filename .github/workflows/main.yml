@@ -26,6 +26,9 @@ jobs:
         # echo "::set-env name=APP_NAME::
         #echo "::set-env name=TARBALL::`ls ${PACKAGE_NAME}_*.gz`"
         #echo "$TARBALL"
+        echo ${PACKAGE_NAME}
+        echo "${PACKAGE_NAME}"
+        echo "${PACKAGE_NAME}_A"
         cp ${PACKAGE_NAME}_${PACKAGE_VERSION}.tar.gz /home/runner/work/biocIBC/biocIBC/
         #echo `pwd`
         #ls
