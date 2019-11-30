@@ -30,9 +30,10 @@ jobs:
         #echo ${PACKAGE_NAME}
         #echo "${PACKAGE_NAME}"
         #echo "${PACKAGE_NAME}_A"
+        echo `pwd`
+        ls
+        mkdir /home/runner/work/biocIBC/biocIBC
         cp "${TARBALL}" /home/runner/work/biocIBC/biocIBC/
-        #echo `pwd`
-        #ls
         echo "${GITHUB_WORKSPACE}"
         ls /home/runner/work/biocIBC/biocIBC/
       continue-on-error: true
