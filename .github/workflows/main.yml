@@ -8,7 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PACKAGE_NAME: ROC
-      TARBALL: to_do
     steps:
     - name: improve
       run: |
@@ -24,7 +23,7 @@ jobs:
         cd ..
         R CMD build ${PACKAGE_NAME}
         # echo "::set-env name=APP_NAME::
-        echo "::set-env name=TARBALL=`ls ${PACKAGE_NAME}_*.gz`"
+        echo "::set-env name=TARBALL::`ls ${PACKAGE_NAME}_*.gz`"
         echo ${TARBALL}
         cp ${TARBALL} /home/runner/work/biocIBC/biocIBC/
         echo `pwd`
