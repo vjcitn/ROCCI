@@ -1,13 +1,13 @@
+# demonstration of log and tarball generation -- you must supply full
+# tarball name at the end because of difficulties creating/passing env vars
 name: biocIBC_ROC
 env:
   PACKAGE_NAME: ROC
-  PACKAGE_VERSION: 1.63.0
   TARBALL: ROC_1.63.0.tar.gz  
-
-on: [pull_request]
+on: [push]
 jobs:
   install1:
-    container: vjcitn/vjcbbs_support:v8
+    container: bioconductor/bioconductor_full:release
     name: install with log.txt
     runs-on: ubuntu-latest
     steps:
@@ -19,33 +19,13 @@ jobs:
     - name: install and log bioc package from bioc git  # 3.10 owing to :v8 above
       run: |
         Rscript -e "BiocManager::install('${PACKAGE_NAME}')" > install.log.txt
-        #git clone https://git.bioconductor.org/packages/${PACKAGE_NAME}
-        #cd ${PACKAGE_NAME}
-        #Rscript -e "devtools::check()" > ../chk.log.txt 
-        #cd ..
-        #R CMD build ${PACKAGE_NAME}
-        ## echo "::set-env name=APP_NAME::
-        # Rscript -e "BiocManager::install('${PACKAGE_NAME}')" > install.log.txt
         git clone https://git.bioconductor.org/packages/${PACKAGE_NAME}
         cd ${PACKAGE_NAME}
         Rscript -e "devtools::check()" > ../chk.log.txt 
         cd ..
         R CMD build ${PACKAGE_NAME}
-        export TARBALL=`ls ${PACKAGE_NAME}_*.gz`
+        export TARBALL=`ls ${PACKAGE_NAME}_*.gz`  # NOT REALLY NEEDED AS YOU SUPPLY THIS INFO
         cp ${TARBALL} /home/runner/work/biocIBC/biocIBC/
-  #echo `pwd`
-  #ls
-        #echo "::set-env name=TARBALL::`ls ${PACKAGE_NAME}_*.gz`"
-   #     echo "${TARBALL}"
-        #echo ${PACKAGE_NAME}
-        #echo "${PACKAGE_NAME}"
-        #echo "${PACKAGE_NAME}_A"
-    #    echo `pwd`
-    #    ls
-    #    mkdir /home/runner/work/biocIBC/biocIBC
-    #    cp "${TARBALL}" /home/runner/work/biocIBC/biocIBC/
-    #    echo "${GITHUB_WORKSPACE}"
-    #    ls /home/runner/work/biocIBC/biocIBC/
       continue-on-error: true
       id: install_log
     - name: get install log
