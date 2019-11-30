@@ -1,8 +1,8 @@
 name: biocIBC_ROC
- env:
-      PACKAGE_NAME: ROC
-      PACKAGE_VERSION: 1.63.0
-      TARBALL: ROC_1.63.0.tar.gz
+  env:
+    PACKAGE_NAME: ROC
+    PACKAGE_VERSION: 1.63.0
+    TARBALL: ROC_1.63.0.tar.gz
 
 on: [pull_request]
 jobs:
