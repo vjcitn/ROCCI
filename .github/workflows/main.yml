@@ -29,7 +29,7 @@ jobs:
         echo ${PACKAGE_NAME}
         echo "${PACKAGE_NAME}"
         echo "${PACKAGE_NAME}_A"
-        cp ${PACKAGE_NAME}_${PACKAGE_VERSION}.tar.gz /home/runner/work/biocIBC/biocIBC/
+        cp "${PACKAGE_NAME}_${PACKAGE_VERSION}.tar.gz" /home/runner/work/biocIBC/biocIBC/
         #echo `pwd`
         #ls
         #ls /home/runner/work/biocIBC/biocIBC/
@@ -50,5 +50,5 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: tb
-        path: ${PACKAGE_NAME}_${PACKAGE_VERSION}.tar.gz # ROC_1.63.0.tar.gz # not substituting?
+        path: "${PACKAGE_NAME}_${PACKAGE_VERSION}.tar.gz" # ROC_1.63.0.tar.gz # not substituting?
   
