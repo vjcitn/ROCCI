@@ -32,7 +32,7 @@ jobs:
         cp "${PACKAGE_NAME}_${PACKAGE_VERSION}.tar.gz" /home/runner/work/biocIBC/biocIBC/
         #echo `pwd`
         #ls
-        #ls /home/runner/work/biocIBC/biocIBC/
+        ls /home/runner/work/biocIBC/biocIBC/
       continue-on-error: true
     - name: get install log
       uses: actions/upload-artifact@master
