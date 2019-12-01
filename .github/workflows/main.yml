@@ -7,7 +7,7 @@ env:
 on: [push]
 jobs:
   install1:
-    container: bioconductor/bioconductor_full:release
+    container: bioconductor/bioconductor_full:devel
     name: install with log.txt
     runs-on: ubuntu-latest
     steps:
