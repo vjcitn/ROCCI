@@ -25,9 +25,9 @@ jobs:
         Rscript -e "devtools::check()" > ../chk.log.txt 
         cd ..
         R CMD build ${PACKAGE_NAME}
-        export TARBALL=`ls ${PACKAGE_NAME}_*.gz`  # NOT REALLY NEEDED AS YOU SUPPLY THIS INFO
-        cp ${TARBALL} /home/runner/work/biocIBC/biocIBC/
-        cd `R RHOME`/library
+        #export TARBALL=`ls ${PACKAGE_NAME}_*.gz`  # NOT REALLY NEEDED AS YOU SUPPLY THIS INFO
+        #cp ${TARBALL} /home/runner/work/biocIBC/biocIBC/
+        cd /usr/local/lib/R/site-library/
         tar czvf ${PACKAGE_NAME}_${VERSION_TAG}.tgz ${PACKAGE_NAME}
         cp ${PACKAGE_NAME}_${VERSION_TAG}.tgz /home/runner/work/biocIBC/biocIBC/
         cd ${GITHUB_WORKSPACE}
