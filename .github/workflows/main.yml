@@ -3,6 +3,7 @@
 name: biocIBC_ROC
 env:
   PACKAGE_NAME: ROC
+  VERSION_TAG: 1.63.0
   TARBALL: ROC_1.63.0.tar.gz
 on: [push]
 jobs:
@@ -18,7 +19,8 @@ jobs:
       continue-on-error: true
     - name: install and log bioc package from bioc git  # 3.10 owing to :v8 above
       run: |
-        Rscript -e "BiocManager::install(c('devtools', '${PACKAGE_NAME}'))" > install.log.txt
+        mkdir binfolder
+        Rscript -e ".libPaths(c('binfolder', .libPaths())); BiocManager::install(c('devtools', '${PACKAGE_NAME}'))" > install.log.txt
         git clone https://git.bioconductor.org/packages/${PACKAGE_NAME}
         cd ${PACKAGE_NAME}
         Rscript -e "devtools::check()" > ../chk.log.txt 
@@ -26,6 +28,10 @@ jobs:
         R CMD build ${PACKAGE_NAME}
         export TARBALL=`ls ${PACKAGE_NAME}_*.gz`  # NOT REALLY NEEDED AS YOU SUPPLY THIS INFO
         cp ${TARBALL} /home/runner/work/biocIBC/biocIBC/
+        cd binfolder
+        tar czvf ${PACKAGE_NAME}_${VERSION_TAG}.tgz ${PACKAGE_NAME}
+        cp ${PACKAGE_NAME}_${VERSION_TAG}.tgz /home/runner/work/biocIBC/biocIBC/
+        cd ..
       continue-on-error: true
       id: install_log
     - name: get install log
@@ -45,3 +51,8 @@ jobs:
       with:
         name: tb
         path: ROC_1.63.0.tar.gz  # does not seem to expand global env maps
+    - name: get_binary
+      uses: actions/upload-artifact@master
+      with:
+        name: binary_pkg
+        path: ROC_1.63.0.tgz # should indicate platform
