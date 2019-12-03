@@ -29,7 +29,7 @@ jobs:
         #cp ${TARBALL} /home/runner/work/biocIBC/biocIBC/
         cd /usr/local/lib/R/site-library/
         tar czvf ${PACKAGE_NAME}_${VERSION_TAG}.tgz ${PACKAGE_NAME}
-        cp ${PACKAGE_NAME}_${VERSION_TAG}.tgz /home/runner/work/biocIBC/biocIBC/
+        cp ${PACKAGE_NAME}_${VERSION_TAG}.tgz ${GITHUB_WORKSPACE}
         cd ${GITHUB_WORKSPACE}
       continue-on-error: true
       id: install_log
