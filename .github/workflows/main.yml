@@ -8,7 +8,7 @@ env:
 on: [push, pull_request]
 jobs:
   install1:
-    container: vjcitn/deseq2_support:v1
+    container: vjcitn/deseq2_support:v2
     name: install with log.txt
     runs-on: ubuntu-latest
     steps:
