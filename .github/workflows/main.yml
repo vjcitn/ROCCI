@@ -8,7 +8,7 @@ env:
 on: [push, pull_request]
 jobs:
   install1:
-    container: bioconductor/bioconductor_full:devel
+    container: vjcitn/deseq2:v1
     name: install with log.txt
     runs-on: ubuntu-latest
     steps:
