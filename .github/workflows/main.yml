@@ -30,7 +30,7 @@ jobs:
         cd /usr/local/lib/R/site-library/
         export PLAT=`Rscript -e "cat(R.version\\$platform)" --quiet`
         tar czvf ${PACKAGE_NAME}_${PLAT}_${VERSION_TAG}.tgz ${PACKAGE_NAME}
-        cp ${PACKAGE_NAME}_${VERSION_TAG}.tgz ${GITHUB_WORKSPACE}
+        cp ${PACKAGE_NAME}_${PLAT}_${VERSION_TAG}.tgz ${GITHUB_WORKSPACE}
         cd ${GITHUB_WORKSPACE}
       continue-on-error: true
       id: install_log
