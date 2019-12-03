@@ -28,7 +28,8 @@ jobs:
         #export TARBALL=`ls ${PACKAGE_NAME}_*.gz`  # NOT REALLY NEEDED AS YOU SUPPLY THIS INFO
         #cp ${TARBALL} /home/runner/work/biocIBC/biocIBC/
         cd /usr/local/lib/R/site-library/
-        tar czvf ${PACKAGE_NAME}_${VERSION_TAG}.tgz ${PACKAGE_NAME}
+        export PLAT=`Rscript -e "cat(R.version\\$platform)" --quiet`
+        tar czvf ${PACKAGE_NAME}_${PLAT}_${VERSION_TAG}.tgz ${PACKAGE_NAME}
         cp ${PACKAGE_NAME}_${VERSION_TAG}.tgz ${GITHUB_WORKSPACE}
         cd ${GITHUB_WORKSPACE}
       continue-on-error: true
@@ -54,4 +55,4 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: binary_pkg
-        path: ROC_1.63.0.tgz # should indicate platform
+        path: ROC_x86_64-pc-linux-gnu_1.63.0.tgz # should indicate platform
