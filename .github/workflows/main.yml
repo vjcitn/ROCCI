@@ -19,8 +19,7 @@ jobs:
       continue-on-error: true
     - name: install and log bioc package from bioc git  # 3.10 owing to :v8 above
       run: |
-        mkdir binfolder
-        Rscript -e ".libPaths(c('binfolder', .libPaths())); BiocManager::install(c('devtools', '${PACKAGE_NAME}'))" > install.log.txt
+        Rscript -e "BiocManager::install(c('devtools', '${PACKAGE_NAME}'))" > install.log.txt
         git clone https://git.bioconductor.org/packages/${PACKAGE_NAME}
         cd ${PACKAGE_NAME}
         Rscript -e "devtools::check()" > ../chk.log.txt 
@@ -28,10 +27,10 @@ jobs:
         R CMD build ${PACKAGE_NAME}
         export TARBALL=`ls ${PACKAGE_NAME}_*.gz`  # NOT REALLY NEEDED AS YOU SUPPLY THIS INFO
         cp ${TARBALL} /home/runner/work/biocIBC/biocIBC/
-        cd binfolder
+        cd `R RHOME`/library
         tar czvf ${PACKAGE_NAME}_${VERSION_TAG}.tgz ${PACKAGE_NAME}
         cp ${PACKAGE_NAME}_${VERSION_TAG}.tgz /home/runner/work/biocIBC/biocIBC/
-        cd ..
+        cd ${GITHUB_WORKSPACE}
       continue-on-error: true
       id: install_log
     - name: get install log
