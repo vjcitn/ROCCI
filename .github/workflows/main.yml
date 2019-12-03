@@ -2,8 +2,8 @@
 # tarball name at the end because of difficulties creating/passing env vars
 name: biocIBC_ROC
 env:
-  PACKAGE_NAME: ${INPUT_PKGNAME}
-  TARBALL: ${INPUT_TARBALL}
+  PACKAGE_NAME: ${{ inputs.pkgname }}
+  TARBALL: ${{ inputs.tarball }}
 on: [push]
 jobs:
   install1:
@@ -44,4 +44,4 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: tb
-        path: ${INPUT_TARBALL}
+        path: ${{ inputs.tarball }}
