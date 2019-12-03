@@ -1,11 +1,11 @@
 # demonstration of log and tarball generation -- you must supply full
 # tarball name at the end because of difficulties creating/passing env vars
-name: biocIBC_ROC
+name: biocIBC_DESeq2
 env:
-  PACKAGE_NAME: ROC
-  VERSION_TAG: 1.63.0
-  TARBALL: ROC_1.63.0.tar.gz
-on: [push]
+  PACKAGE_NAME: DESeq2
+  VERSION_TAG: 1.27.13
+  TARBALL: DESeq2_1.27.13.tar.gz
+on: [push, pull_request]
 jobs:
   install1:
     container: bioconductor/bioconductor_full:devel
@@ -50,9 +50,9 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: tb
-        path: ROC_1.63.0.tar.gz  # does not seem to expand global env maps
+        path: DESeq2_1.27.13.tar.gz  # does not seem to expand global env maps
     - name: get_binary
       uses: actions/upload-artifact@master
       with:
         name: binary_pkg
-        path: ROC_x86_64-pc-linux-gnu_1.63.0.tgz # should indicate platform
+        path: DESeq2_x86_64-pc-linux-gnu_1.27.13.tgz # should indicate platform
