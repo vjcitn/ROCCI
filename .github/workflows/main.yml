@@ -2,12 +2,12 @@
 # tarball name at the end because of difficulties creating/passing env vars
 name: biocIBC_ROC
 env:
-  PACKAGE_NAME: ROC
-  TARBALL: ROC_1.63.0.tar.gz  
+  PACKAGE_NAME: ${INPUT_PKGNAME}
+  TARBALL: ${INPUT_TARBALL}
 on: [push]
 jobs:
   install1:
-    container: bioconductor/bioconductor_full:devel
+    container: ${INPUT_CONTAINER}
     name: install with log.txt
     runs-on: ubuntu-latest
     steps:
@@ -44,4 +44,4 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: tb
-        path: ROC_1.63.0.tar.gz
+        path: ${INPUT_TARBALL}
