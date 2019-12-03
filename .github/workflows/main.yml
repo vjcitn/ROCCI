@@ -19,7 +19,7 @@ jobs:
       continue-on-error: true
     - name: install and log bioc package from bioc git  # 3.10 owing to :v8 above
       run: |
-        Rscript -e "BiocManager::install(c('devtools', '${PACKAGE_NAME}'))" > install.log.txt
+        Rscript -e "BiocManager::install(c('devtools', 'rmarkdown','${PACKAGE_NAME}'))" > install.log.txt
         git clone https://git.bioconductor.org/packages/${PACKAGE_NAME}
         cd ${PACKAGE_NAME}
         Rscript -e "devtools::check()" > ../chk.log.txt 
